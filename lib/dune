@@ -1,0 +1,9 @@
+(library
+ (name lib)
+ (modes :standard melange)
+ (libraries server-reason-react.react server-reason-react.reactDom)
+ (melange.libraries melange.js reason-react)
+ (preprocess
+  (pps server-reason-react.ppx))
+ (melange.preprocess
+  (pps melange.ppx reason-react-ppx)))

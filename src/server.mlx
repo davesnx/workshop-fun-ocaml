@@ -1,0 +1,40 @@
+module Document = struct
+  let [@react.component] make ~children ?script =
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <link rel="stylesheet" href="/output.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title> (React.string("Server Reason React demo")) </title>
+        (match script with
+        | None -> React.null
+        | Some src -> <script type_="module" src />)
+      </head>
+      <body> children </body>
+    </html>
+end
+
+let () =
+  let routes = [
+    Dream.get "/output.css" (Dream.from_filesystem "./_build/default/src" "output.css");
+    Dream.get "/static/**" (Dream.static "./_build/default/src/app");
+    Dream.get "/ssr-example" (fun _request ->
+      Dream.html @@ ReactDOM.renderToStaticMarkup
+        (<Document script="/static/fat_client.js">
+           <Lib.App />
+        </Document>)
+    );
+    Dream.get "/" (
+      DreamRSC.createFromRequest
+        ~bootstrapModules:["/static/client.js"]
+        ~layout:(fun children -> <Document> children </Document>)
+        <Lib.App />
+      );
+  ] in
+  let server = Dream.logger (Dream.router routes) in
+  let interface =
+    match Sys.getenv_opt "SERVER_INTERFACE" with
+    | Some env -> env
+    | None -> "localhost" in
+
+  Dream.run ~port:8080 ~interface server

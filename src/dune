@@ -1,0 +1,80 @@
+(executable
+ (name server)
+ (public_name server)
+ (package workshop)
+ (modules server)
+ (libraries
+  dream
+  lwt
+  server-reason-react.reactDom
+  server-reason-react.react
+  DreamRSC
+  lib)
+ (preprocess
+  (pps server-reason-react.ppx)))
+
+(rule
+ (alias server)
+ (deps
+  server.exe
+  (alias_rec client))
+ (action
+  (progn
+   ; we want dune to write the file but not attach any fsevents listeners to it,
+   ; so that watchexec can read from it without issues.
+   ; this means no (target), no (with-stdout-to), just a bash command with stdout
+   ; redirect inside a string
+   (bash "date > %{project_root}/../../.running/built_at.txt"))))
+
+(melange.emit
+ (target app)
+ (modules client)
+ (libraries
+  melange.js
+  reason-react
+  server-reason-react.url_js
+  melange.dom
+  melange-webapi
+  melange-fetch
+  ReactServerDOMEsbuild)
+ (preprocess
+  (pps melange.ppx reason-react-ppx)))
+
+(melange.emit
+ (target app)
+ (modules fat_client)
+ (libraries
+  lib
+  melange.js
+  reason-react
+  server-reason-react.url_js
+  melange.dom
+  melange-webapi
+  melange-fetch
+  ReactServerDOMEsbuild)
+ (preprocess
+  (pps melange.ppx reason-react-ppx)))
+
+(rule
+ (alias client)
+ (deps
+  (alias_rec melange)
+  (:script build.mjs)
+  (:entrypoints ./app/src/client.js ./app/src/fat_client.js)
+  (source_tree node_modules))
+ (action
+  (run
+   node
+   %{script}
+   %{entrypoints}
+   --output=app/demo/
+   --extract=true
+   --env=%{env:DEMO_ENV='production'})))
+
+(rule
+ (alias client)
+ (target output.css)
+ (deps (universe))
+ (action
+  (progn
+   (run npx tailwindcss --input=styles.css --output=%{target}))))

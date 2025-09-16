@@ -1,0 +1,14 @@
+module DOM = Webapi.Dom
+
+let () =
+  let document = DOM.document |> DOM.Document.asHtmlDocument in
+  let body = Option.bind document DOM.HtmlDocument.body in
+
+  match body with
+  | Some element ->
+    let transition () =
+      ReactDOM.Client.hydrateRoot element (<Lib.App />)
+      |> ignore
+    in
+    React.startTransition transition
+  | None -> Js.log "Root element not found"

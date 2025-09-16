@@ -1,0 +1,6 @@
+(library
+ (name DreamRSC)
+ (wrapped false)
+ (libraries dream server-reason-react.react server-reason-react.reactDom)
+ (preprocess
+  (pps server-reason-react.ppx lwt_ppx)))
