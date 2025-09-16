@@ -39,7 +39,6 @@ install-npm:
 pin: ## Pin dependencies
 	opam pin add server-reason-react.dev "https://github.com/ml-in-barcelona/server-reason-react.git#5df1a8af48c98c175f66b9a45530bada430f237b" -y
 	opam pin add dune-build-info.dev "https://github.com/davesnx/dune.git#74c50d02724b634201d505bda21add3e8f6e298e" -y
-	opam pin add ordering.dev "https://github.com/davesnx/dune.git#74c50d02724b634201d505bda21add3e8f6e298e" -y
 	opam pin add dune-configurator.dev "https://github.com/davesnx/dune.git#74c50d02724b634201d505bda21add3e8f6e298e" -y
 	opam pin add dune.dev "https://github.com/davesnx/dune.git#74c50d02724b634201d505bda21add3e8f6e298e" -y
 	opam pin add server-reason-react.dev "https://github.com/ml-in-barcelona/server-reason-react.git#5df1a8af48c98c175f66b9a45530bada430f237b" -y
