@@ -18,6 +18,7 @@ let () =
   let routes = [
     Dream.get "/output.css" (Dream.from_filesystem "./_build/default/src" "output.css");
     Dream.get "/static/**" (Dream.static "./_build/default/src/app");
+    Dream.get "/static/**" (Dream.static "./_build/default/src/fat_app");
     Dream.get "/ssr-example" (fun _request ->
       Dream.html @@ ReactDOM.renderToStaticMarkup
         (<Document script="/static/fat_client.js">

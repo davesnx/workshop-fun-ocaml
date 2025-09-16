@@ -7,7 +7,7 @@
 
 - clone this repo https://github.com/davesnx/workshop-fun-ocaml
 - npm
-- opam
+- opam 2.3.0
 
 
 
@@ -86,6 +86,8 @@ https://github.com/ocaml-mlx/mlx
   (preprocess
    (run mlx-pp %{input-file}))))
 ```
+
+Install VSCode or nvim extension
 
 
 

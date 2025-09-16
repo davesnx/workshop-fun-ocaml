@@ -3,13 +3,8 @@
  (public_name server)
  (package workshop)
  (modules server)
- (libraries
-  dream
-  lwt
-  server-reason-react.reactDom
-  server-reason-react.react
-  DreamRSC
-  lib)
+ (libraries dream lwt server-reason-react.reactDom server-reason-react.react
+  DreamRSC lib)
  (preprocess
   (pps server-reason-react.ppx)))
 
@@ -29,29 +24,16 @@
 (melange.emit
  (target app)
  (modules client)
- (libraries
-  melange.js
-  reason-react
-  server-reason-react.url_js
-  melange.dom
-  melange-webapi
-  melange-fetch
-  ReactServerDOMEsbuild)
+ (libraries melange.js reason-react server-reason-react.url_js melange.dom
+  melange-webapi melange-fetch ReactServerDOMEsbuild)
  (preprocess
   (pps melange.ppx reason-react-ppx)))
 
 (melange.emit
- (target app)
+ (target fat_app)
  (modules fat_client)
- (libraries
-  lib
-  melange.js
-  reason-react
-  server-reason-react.url_js
-  melange.dom
-  melange-webapi
-  melange-fetch
-  ReactServerDOMEsbuild)
+ (libraries lib melange.js reason-react server-reason-react.url_js
+  melange.dom melange-webapi melange-fetch ReactServerDOMEsbuild)
  (preprocess
   (pps melange.ppx reason-react-ppx)))
 
@@ -60,15 +42,10 @@
  (deps
   (alias_rec melange)
   (:script build.mjs)
-  (:entrypoints ./app/src/client.js ./app/src/fat_client.js)
+  (:entrypoints ./app/src/client.js ./fat_app/src/fat_client.js)
   (source_tree node_modules))
  (action
-  (run
-   node
-   %{script}
-   %{entrypoints}
-   --output=app/demo/
-   --extract=true
+  (run node %{script} %{entrypoints} --output=app/demo/ --extract=true
    --env=%{env:DEMO_ENV='production'})))
 
 (rule

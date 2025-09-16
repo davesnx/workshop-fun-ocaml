@@ -54,7 +54,7 @@ module App_from_readable_stream = struct
     ReactServerDOMEsbuild.createFromReadableStream readable_stream
 
   let [@react.component] make () =
-    let initialElement = React.Experimental.use initial in
+    let initialElement = React.Experimental.usePromise initial in
     let (layout, setLayout) = React.useState (fun () -> initialElement) in
 
     setNavigate DOM.window (navigate ~setLayout);
