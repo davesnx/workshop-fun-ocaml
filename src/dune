@@ -51,7 +51,7 @@
 (rule
  (alias client)
  (target output.css)
- (deps (universe))
+ (deps (universe) styles.css)
  (action
   (progn
    (run npx tailwindcss --input=styles.css --output=%{target}))))
