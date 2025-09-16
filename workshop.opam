@@ -3,7 +3,6 @@ opam-version: "2.0"
 synopsis: "Rendering React components on the server natively"
 license: "MIT"
 depends: [
-  "dune" {>= "3.19"}
   "ocaml" {>= "4.14.1"}
   "melange" {>= "3.0.0"}
   "mlx"
@@ -17,9 +16,9 @@ depends: [
   "melange-webapi" {>= "0.21.0"}
   "reason-react" {>= "0.16.0"}
   "ocaml-lsp-server" {= "1.21.0"}
-  "dream" {= "1.0.0~alpha8" & with-dev-setup}
-  "reason-react-ppx" {with-dev-setup}
-  "server-reason-react" {with-dev-setup}
+  "dream" {= "1.0.0~alpha8"}
+  "reason-react-ppx" {= "0.16.0"}
+  "server-reason-react"
   "odoc" {with-doc}
 ]
 build: [

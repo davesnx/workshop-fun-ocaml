@@ -41,7 +41,6 @@ pin: ## Pin dependencies
 	opam pin add dune-build-info.dev "https://github.com/davesnx/dune.git#74c50d02724b634201d505bda21add3e8f6e298e" -y
 	opam pin add dune-configurator.dev "https://github.com/davesnx/dune.git#74c50d02724b634201d505bda21add3e8f6e298e" -y
 	opam pin add dune.dev "https://github.com/davesnx/dune.git#74c50d02724b634201d505bda21add3e8f6e298e" -y
-	opam pin add server-reason-react.dev "https://github.com/ml-in-barcelona/server-reason-react.git#5df1a8af48c98c175f66b9a45530bada430f237b" -y
 
 # Currently the lsp doesn't compile with mlx, need to wait for the PR to get merged
 # opam pin add ocaml-lsp-server.dev "https://github.com/davesnx/ocaml-lsp.git#0988f2b9b0ea6822ed0f8a970b7eaf807605f772" -y
