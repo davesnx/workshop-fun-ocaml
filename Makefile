@@ -25,8 +25,7 @@ format-check: ## Checks if format is correct
 
 .PHONY: create-switch
 create-switch: ## Create opam switch
-	opam update
-	opam switch create . 5.2.0 --deps-only --with-test -y
+	opam switch create . 5.2.0 --deps-only --with-test --no-install -y
 
 .PHONY: install
 install:
